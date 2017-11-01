@@ -1,11 +1,13 @@
 from block_api.endpoints import api_endpoints
 from flask import *
 from block import blockchain
+from block.services import ConflictService
 
 
 @api_endpoints.route('/nodes/resolve', methods=['GET'])
 def consensus():
-    replaced = blockchain.resolve_conflicts()
+    c = ConflictService(blockchain)
+    replaced = c.resolve_conflicts()
 
     if replaced:
         response = {

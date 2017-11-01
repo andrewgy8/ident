@@ -1,6 +1,7 @@
 from flask import *
 from block import blockchain
 from block_api.endpoints import api_endpoints
+from block.services import NodeService
 
 
 @api_endpoints.route('/nodes/register', methods=['POST'])
@@ -12,7 +13,8 @@ def register_nodes():
         return "Error: Please supply a valid list of nodes", 400
 
     for node in nodes:
-        blockchain.register_node(node)
+        n = NodeService(blockchain)
+        n.register_node(node)
 
     response = {
         'message': 'New nodes have been added',
