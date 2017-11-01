@@ -2,6 +2,7 @@ import unittest
 from block.blockchain import Blockchain
 from block.tests.helpers.transaction_factory import TransactionFactory, Transaction
 from urllib.parse import ParseResult
+from block.services import NodeService
 
 
 class TestBlockchainTransactions(unittest.TestCase):
@@ -71,19 +72,20 @@ class TestBlockChainNodes(unittest.TestCase):
         """
         addr_1 = 'localhost:8000'
         addr_2 = 'localhost:8001'
-        self.bc.register_node(addr_1)
+        n = NodeService(self.bc)
+        n.register_node(addr_1)
 
         e = next(iter(self.bc.nodes))
         self.assertIsInstance(e, ParseResult)
         assert addr_1 in e
 
-        self.bc.register_node(addr_2)
+        n.register_node(addr_2)
         s = iter(self.bc.nodes)
         next(s)
         f = next(s)
         assert addr_2 in f
 
-        self.bc.register_node(addr_2)
+        n.register_node(addr_2)
         s = iter(self.bc.nodes)
         next(s)
         f = next(s)
