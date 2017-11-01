@@ -9,7 +9,6 @@ COV = coverage.coverage(
     omit=[
         'block/tests/*',
         'block_api/tests/',
-        'config.py'
     ]
 )
 COV.start()

@@ -19,11 +19,11 @@ class Blockchain(object):
     def length(self):
         return len(self.chain)
 
-    def new_transaction(self, sender, receiver, amount):
+    def new_transaction(self, sender, receiver, payload):
         receipt = {
             'sender': sender,
             'receiver': receiver,
-            'amount': amount
+            'payload': payload
         }
 
         self.transactions.append(receipt)
