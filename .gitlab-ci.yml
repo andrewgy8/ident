@@ -11,7 +11,7 @@ test:
 build:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-    - docker build -t registry.gitlab.com/solarisoffgrid/solarisserver/crm:latest .
-    - docker push registry.gitlab.com/solarisoffgrid/solarisserver/crm
+    - docker build -t registry.gitlab.com/andrewgy8/id-blockchain:latest .
+    - docker push registry.gitlab.com/andrewgy8/id-blockchain
   only:
     - master
