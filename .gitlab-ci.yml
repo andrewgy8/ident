@@ -1,0 +1,17 @@
+stages:
+  - test
+
+test:
+  script:
+    - apt-get update -qy
+    - apt-get install -y python-dev python-pip
+    - pip install -r requirements.txt
+    - python manage.py test
+
+build:
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker build -t registry.gitlab.com/solarisoffgrid/solarisserver/crm:latest .
+    - docker push registry.gitlab.com/solarisoffgrid/solarisserver/crm
+  only:
+    - master
