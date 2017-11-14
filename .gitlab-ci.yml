@@ -1,12 +1,10 @@
-
 stages:
   - test
   - build
 
 test:
   image: ubuntu:17.04
-  stage:
-    - test
+  stage: test
   script:
     - apt-get update -qy
     - apt-get install -y python-dev python-pip
@@ -15,8 +13,7 @@ test:
 
 build:
   image: docker:latest
-  stage:
-    -build
+  stage: build
   services:
     - docker:dind
   script:
