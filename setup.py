@@ -15,6 +15,7 @@ setup(
     ],
     tests_require=[
         'pytest',
-        'flask_testing'
+        'flask_testing',
+        'faker'
     ],
 )

@@ -2,4 +2,3 @@ flask
 click
 gunicorn
 requests
-faker
