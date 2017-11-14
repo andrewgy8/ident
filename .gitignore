@@ -4,3 +4,6 @@
 .cache
 .idea/
 .eggs/
+dist
+block_id.egg-info
+build

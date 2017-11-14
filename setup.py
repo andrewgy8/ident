@@ -6,7 +6,9 @@ setup(
     include_package_data=True,
     install_requires=[
         'flask',
-        'click'
+        'click',
+        'gunicorn',
+        'requests'
     ],
     setup_requires=[
         'pytest-runner',
