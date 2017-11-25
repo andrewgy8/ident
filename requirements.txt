@@ -2,3 +2,4 @@ flask
 click
 gunicorn
 requests
+flask-testing
