@@ -1,6 +1,6 @@
 from flask_testing import TestCase
 
-from src import api
+from src import test_app
 from src.blockchain import blockchain
 from tests.helpers.transaction_factory import TransactionFactory
 
@@ -11,8 +11,7 @@ class ChainAPITest(TestCase):
         self.bc = blockchain
 
     def create_app(self):
-        api.config['TESTING'] = True
-        return api
+        return test_app()
 
     def tearDown(self):
         self.bc = None
