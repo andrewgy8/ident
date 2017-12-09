@@ -1,6 +1,6 @@
 from flask import *
 
-from src.api.nodes.services import NodeService, ConflictService
+from src.api.nodes.services import NodeService, NodeConflictService
 from src.blockchain import blockchain
 from . import nodes
 
@@ -26,7 +26,7 @@ def register_nodes():
 
 @nodes.route('/resolve', methods=['GET'])
 def consensus():
-    c = ConflictService(blockchain)
+    c = NodeConflictService(blockchain)
     replaced = c.resolve_conflicts()
 
     if replaced:

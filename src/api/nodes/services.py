@@ -13,7 +13,7 @@ class NodeService:
         self.blockchain.nodes.add(parsed_url)
 
 
-class ConflictService:
+class NodeConflictService:
 
     def __init__(self, blockchain):
         self.blockchain = blockchain
@@ -52,7 +52,7 @@ class ConflictService:
         return False
 
 
-class ValidationService:
+class ChainValidationService:
 
     def __init__(self, blockchain):
         self.blockchain = blockchain

@@ -14,7 +14,7 @@ def new_transaction():
         return 'Missing values', 400
 
     # Create a new Transaction
-    index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
+    index = blockchain.add_transaction(values['sender'], values['recipient'], values['amount'])
 
     response = {
         'message': f'Transaction will be added to Block {index}'

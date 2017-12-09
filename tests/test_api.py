@@ -20,7 +20,7 @@ class ChainAPITest(TestCase):
         n_transactions = TransactionFactory(num)
 
         for transx in n_transactions.transactions:
-            self.bc.new_transaction(transx.sender, transx.receiver, transx.amount)
+            self.bc.add_transaction(transx.sender, transx.receiver, transx.amount)
 
     def add_block_to_chain(self):
 

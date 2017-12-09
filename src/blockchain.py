@@ -3,7 +3,35 @@ import json
 import hashlib
 
 
-class Blockchain(object):
+class PersonalInformation:
+    def __init__(self,
+                 key,
+                 **kwargs):
+
+        self.key = key
+        self.name = kwargs.get('name')
+        self.surname = kwargs.get('surname')
+        self.email = kwargs.get('email')
+        self.phone = kwargs.get('phone_number')
+
+    def lock(self, **kwargs):
+        """
+        Hashes personal information with key 
+        so that it can not be compromised.
+         
+        :param kwargs: 
+        :return: 
+        """
+        return
+
+    def submit(self):
+        return
+
+    def _to_json(self):
+        return
+
+
+class Blockchain:
 
     def __init__(self):
         self.chain = []
@@ -19,7 +47,7 @@ class Blockchain(object):
     def length(self):
         return len(self.chain)
 
-    def new_transaction(self, sender, receiver, payload):
+    def add_transaction(self, sender, receiver, payload):
         receipt = {
             'sender': sender,
             'receiver': receiver,

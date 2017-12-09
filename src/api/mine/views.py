@@ -13,7 +13,7 @@ def mine_transactions():
 
     # We must receive a reward for finding the proof.
     # The sender is "0" to signify that this node has mined a new coin.
-    blockchain.new_transaction(
+    blockchain.add_transaction(
         sender="0",
         receiver=node_identifier,
         payload=1,

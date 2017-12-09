@@ -18,11 +18,11 @@ class TestBlockchainTransactions(unittest.TestCase):
         n_transactions = TransactionFactory(num)
 
         for transx in n_transactions.transactions:
-            self.bc.new_transaction(transx.sender, transx.receiver, transx.amount)
+            self.bc.add_transaction(transx.sender, transx.receiver, transx.amount)
 
     def test_should_add_a_block_to_the_chain_through_transactions(self):
         t = Transaction()
-        self.bc.new_transaction(t.sender, t.receiver, t.amount)
+        self.bc.add_transaction(t.sender, t.receiver, t.amount)
 
         t_1 = self.bc.transactions[0]
         self.assertEqual(t.sender, t_1['sender'])
@@ -34,22 +34,22 @@ class TestBlockchainTransactions(unittest.TestCase):
         n_transactions = TransactionFactory(num_trans_to_make)
 
         for transx in n_transactions.transactions:
-            self.bc.new_transaction(transx.sender, transx.receiver, transx.amount)
+            self.bc.add_transaction(transx.sender, transx.receiver, transx.amount)
 
         self.assertIs(len(self.bc.transactions), num_trans_to_make + 1)
 
     def test_add_block_to_chain(self):
-        num_transactions = 10
-        self.add_transactions(num_transactions)
+        tansx_count = 10
+        self.add_transactions(tansx_count)
 
-        self.assertIs(len(self.bc.transactions), num_transactions)
+        self.assertIs(len(self.bc.transactions), tansx_count)
 
         last_block = self.bc.last_block
-        last_proof = last_block['proof']
+        last_proof = last_block.get('proof')
         proof = self.bc.proof_of_work(last_proof)
 
         block = self.bc.add_block_to_chain(proof)
-        self.assertEqual(len(block['transactions']), num_transactions)
+        self.assertEqual(len(block.get('transactions')), tansx_count)
         self.assertEqual(self.bc.length, 2)
 
     def test_should_hash_and_de_hash(self):
