@@ -1,6 +1,6 @@
 import unittest
 from urllib.parse import ParseResult
-
+from time import time
 from src.api.nodes.services import NodeService
 from src.blockchain import Blockchain
 from tests.helpers.transaction_factory import TransactionFactory, Transaction
@@ -53,7 +53,19 @@ class TestBlockchainTransactions(unittest.TestCase):
         self.assertEqual(self.bc.length, 2)
 
     def test_should_hash_and_de_hash(self):
-        pass
+        block = {
+            'index': 1,
+            'timestamp': time(),
+            'transactions': [],
+            'proof': 1,
+            'previous_hash': 'abcd',
+        }
+        res = Blockchain.hash(block)
+        assert res
+        proof = 0
+        while Blockchain.valid_proof(1, proof) is False:
+            proof += 1
+        assert isinstance(proof, int)
 
 
 class TestBlockChainNodes(unittest.TestCase):

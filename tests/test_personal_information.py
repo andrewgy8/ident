@@ -17,7 +17,9 @@ class TestPersonalInformation(unittest.TestCase):
     def test_init(self):
         assert self.p_info.key == self.secret_key
         encoded = self.p_info.encoded_info
+        string = self.p_info.info_str
         assert encoded
+        assert isinstance(string, str)
         decode = jwt.decode(encoded, self.secret_key)
         assert decode.get('name') == self.info.get('name')
 
