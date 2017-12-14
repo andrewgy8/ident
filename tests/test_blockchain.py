@@ -18,38 +18,38 @@ class TestBlockchainTransactions(unittest.TestCase):
         n_transactions = TransactionFactory(num)
 
         for transx in n_transactions.transactions:
-            self.bc.add_transaction(transx.sender, transx.receiver, transx.amount)
+            self.bc.add_transaction(transx.sender, transx.receiver, transx.payload, transx.key)
 
     def test_should_add_a_block_to_the_chain_through_transactions(self):
         t = Transaction()
-        self.bc.add_transaction(t.sender, t.receiver, t.amount)
+        self.bc.add_transaction(t.sender, t.receiver, t.payload, t.key)
 
-        t_1 = self.bc.transactions[0]
-        self.assertEqual(t.sender, t_1['sender'])
-        self.assertEqual(t.receiver, t_1['receiver'])
-        self.assertEqual(t.amount, t_1['payload'])
+        trans_1 = self.bc.transactions[0]
+        self.assertEqual(t.sender, trans_1['sender'])
+        self.assertEqual(t.receiver, trans_1['receiver'])
+        # self.assertEqual(t.payload, trans_1['payload'])
         self.assertIs(len(self.bc.transactions), 1)
 
-        num_trans_to_make = 4
-        n_transactions = TransactionFactory(num_trans_to_make)
+        count = 4
+        n_transactions = TransactionFactory(count)
 
         for transx in n_transactions.transactions:
-            self.bc.add_transaction(transx.sender, transx.receiver, transx.amount)
+            self.bc.add_transaction(transx.sender, transx.receiver, transx.payload, t.key)
 
-        self.assertIs(len(self.bc.transactions), num_trans_to_make + 1)
+        self.assertIs(len(self.bc.transactions), count + 1)
 
     def test_add_block_to_chain(self):
-        tansx_count = 10
-        self.add_transactions(tansx_count)
+        count = 10
+        self.add_transactions(count)
 
-        self.assertIs(len(self.bc.transactions), tansx_count)
+        self.assertIs(len(self.bc.transactions), count)
 
         last_block = self.bc.last_block
         last_proof = last_block.get('proof')
         proof = self.bc.proof_of_work(last_proof)
 
         block = self.bc.add_block_to_chain(proof)
-        self.assertEqual(len(block.get('transactions')), tansx_count)
+        self.assertEqual(len(block.get('transactions')), count)
         self.assertEqual(self.bc.length, 2)
 
     def test_should_hash_and_de_hash(self):

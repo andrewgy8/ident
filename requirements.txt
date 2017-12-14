@@ -3,3 +3,4 @@ click
 gunicorn
 requests
 flask-testing
+pyjwt

@@ -1,34 +1,32 @@
 from time import time
 import json
 import hashlib
+import jwt
 
 
-class PersonalInformation:
+class SecretInformation:
+    """
+    The kwargs can be a dict of any information that will encoded with
+    the users key.  
+    """
     def __init__(self,
                  key,
                  **kwargs):
-
         self.key = key
-        self.name = kwargs.get('name')
-        self.surname = kwargs.get('surname')
-        self.email = kwargs.get('email')
-        self.phone = kwargs.get('phone_number')
+        self.encoded_info = self.__encode(**kwargs)
+        self.info_str = self.encoded_info.decode('utf-8')
 
-    def lock(self, **kwargs):
-        """
-        Hashes personal information with key 
-        so that it can not be compromised.
-         
-        :param kwargs: 
-        :return: 
-        """
-        return
+    def __encode(self, **kwargs):
+        return jwt.encode({**kwargs}, key=self.key, algorithm='HS256')
 
-    def submit(self):
-        return
-
-    def _to_json(self):
-        return
+    def is_valid(self, **kwargs):
+        decoded = jwt.decode(self.encoded_info, self.key)
+        try:
+            assert decoded == {**kwargs}
+        except AssertionError:
+            return False
+        else:
+            return True
 
 
 class Blockchain:
@@ -47,11 +45,12 @@ class Blockchain:
     def length(self):
         return len(self.chain)
 
-    def add_transaction(self, sender, receiver, payload):
+    def add_transaction(self, sender, receiver, payload, key):
+        information = SecretInformation(key=key, **payload)
         receipt = {
             'sender': sender,
             'receiver': receiver,
-            'payload': payload
+            'information': information.info_str
         }
 
         self.transactions.append(receipt)
