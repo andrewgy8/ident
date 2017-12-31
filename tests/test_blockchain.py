@@ -26,8 +26,8 @@ class TestBlockchainTransactions(unittest.TestCase):
 
         trans_1 = self.bc.transactions[0]
         self.assertEqual(t.sender, trans_1['sender'])
-        self.assertEqual(t.receiver, trans_1['receiver'])
-        # self.assertEqual(t.payload, trans_1['payload'])
+        self.assertEqual(t.receiver, trans_1['recipient'])
+        # self.assertEqual(t.payload, trans_1['information'])
         self.assertIs(len(self.bc.transactions), 1)
 
         count = 4

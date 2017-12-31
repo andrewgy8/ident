@@ -9,7 +9,6 @@ class NodeService:
 
     def register_node(self, addr):
         parsed_url = urlparse(addr)
-        print(self.blockchain.nodes, parsed_url)
         self.blockchain.nodes.add(parsed_url)
 
 

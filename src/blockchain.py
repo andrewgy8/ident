@@ -45,12 +45,12 @@ class Blockchain:
     def length(self):
         return len(self.chain)
 
-    def add_transaction(self, sender, receiver, payload, key):
-        information = SecretInformation(key=key, **payload)
+    def add_transaction(self, sender, recipient, information, key):
+        secret = SecretInformation(key=key, **information)
         receipt = {
             'sender': sender,
-            'receiver': receiver,
-            'information': information.info_str
+            'recipient': recipient,
+            'information': secret.info_str
         }
 
         self.transactions.append(receipt)
